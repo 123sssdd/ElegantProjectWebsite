@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/all.css">
+  <title>流程与机构</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      outline: none;
+      text-decoration: none;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url(./img/bg.jpg);
+      background-size: cover;
+      overflow-x: hidden;
+    }
+
+    body .shell-main {
+      width: 100%;
+      height: auto;
+      position: relative;
+      transition: .2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 100px;
+    }
+
+    body .shell-main-nav {
+      width: 100%;
+      height: 60px;
+      position: sticky;
+      z-index: 999;
+      top: 0;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      margin-bottom: 18vh;
+      background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.6));
+      backdrop-filter: blur(13px);
+    }
+
+    body .shell-main-nav .logo {
+      width: 220px;
+      height: 100%;
+      position: absolute;
+      left: 5%;
+      justify-content: space-between;
+      display: flex;
+      align-items: center;
+    }
+
+    body .shell-main-nav .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    body .shell-main-nav .logo span {
+      font: 44 31px 'font';
+      letter-spacing: 2px;
+    }
+
+    body .shell-main-nav ul {
+      width: 600px;
+      height: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      position: absolute;
+      right: 5%;
+    }
+
+    body .shell-main-nav ul .nav-box {
+      position: absolute;
+      bottom: 1px;
+      width: 115px;
+      height: 5px;
+      border-radius: 2px;
+      background-color: #44f3ff;
+      z-index: -999;
+      transition: .5s;
+    }
+
+    body .shell-main-nav ul li {
+      width: 150px;
+      text-align: center;
+    }
+
+    body .shell-main-nav ul li a {
+      color: #000;
+      display: block;
+      width: 100%;
+      height: 100%;
+      line-height: 60px;
+      text-align: center;
+    }
+
+    body .shell-main-nav ul li:nth-child(1):hover~.nav-box {
+      left: 0px;
+    }
+
+    body .shell-main-nav ul li:nth-child(2):hover~.nav-box {
+      left: 120px;
+      background-color: red;
+    }
+
+    body .shell-main-nav ul li:nth-child(3):hover~.nav-box {
+      left: 240px;
+      background-color: #8da1f8;
+    }
+
+    body .shell-main-nav ul li:nth-child(4):hover~.nav-box {
+      left: 360px;
+      background-color: #ffb1b1;
+    }
+
+    body .shell-main-nav ul li:nth-child(5):hover~.nav-box {
+      left: 480px;
+      background-color: #7df88e;
+    }
+
+
+    /* media */
+    @media (max-width:768px) {
+      body .shell-main-nav ul {
+        transform: scale(.7);
+        right: -60px;
+        top: 2px;
+      }
+    }
+
+    @media (max-width:600px) {
+      body .shell-main-nav .logo {
+        display: none;
+      }
+
+      body .shell-main-nav ul {
+        transform: scale(.6);
+        right: -130px;
+      }
+    }
+
+    body .shell-main-nav ul .nav-box {
+      left: 240px;
+    }
+
+    body .shell-main {
+      margin-bottom: 0;
+    }
+
+    body .shell-main-nav {
+      margin-bottom: 0;
+    }
+
+    #main {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #click-section {
+      width: 35%;
+      height: 100%;
+      padding: 20px 0;
+      position: relative;
+    }
+
+    #drawerboxes {
+      margin-left: 10%;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      /* 调整为均匀分布，增加间距 */
+    }
+
+    .drawerbox {
+      height: calc(110% / 10);
+      /* 缩小按钮高度 */
+      width: 65%;
+      /* 缩小按钮宽度 */
+      margin: 17px 0;
+      /* 增加按钮间距 */
+      position: relative;
+      z-index: 100;
+      transform: translateX(-70%);
+      transition: transform .5s ease-in-out;
+    }
+
+    .drawerbox.active {
+      transform: translateX(0);
+    }
+
+    .drawer-btn {
+      width: 120%;
+      height: 100%;
+      font: 800 28px '';
+      /* 缩小字体 */
+      background-color: rgb(175, 190, 255);
+      border: none;
+      transition: background-color .5s ease-in-out;
+      color: #ffffff00;
+    }
+
+    .drawer-btn.active {
+      background-image: url(./img/bg.jpg);
+      background-size: cover;
+      color: rgb(70, 100, 180);
+    }
+
+    .drawer-btn:hover {
+      cursor: pointer;
+    }
+
+    .drawer-head {
+      position: absolute;
+      color: rgb(255, 255, 255);
+      font-size: 95px;
+      /* 缩小数字字体 */
+      font-weight: 700;
+      right: -50px;
+      /* 调整位置 */
+      top: calc(50% - 65px);
+      /* 调整垂直对齐 */
+      text-shadow: 2px -1px 8px rgba(250, 80, 193, 0.323);
+    }
+
+    #slide-section {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 0 40px;
+      background: linear-gradient(to right bottom,
+          rgba(255, 255, 255, .6),
+          rgba(255, 255, 255, .3),
+          rgba(255, 255, 255, .2));
+      backdrop-filter: blur(11px);
+    }
+
+    #slide-bar {
+      position: absolute;
+      top: 5%;
+      left: 40px;
+      height: 90%;
+      width: 1px;
+      background-color: rgb(223, 223, 223);
+    }
+
+    #bar {
+      position: absolute;
+      height: 16.3%;
+      width: 5px;
+      top: 0;
+      left: -1.2px;
+      background-color: rgb(175, 190, 255);
+      transition: transform .5s ease-in-out;
+    }
+
+    #card-section {
+      height: 100%;
+      width: 80%;
+      overflow: hidden;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      padding: 10% 0;
+      color: white;
+      font-size: 30px;
+      transition: transform .5s ease-in-out;
+    }
+
+    .card-small-title {
+      font-size: 30px;
+      font-weight: 600;
+      padding-bottom: min(5%, 10px);
+      color: rgb(70, 100, 180);
+    }
+
+    .card-title {
+      font-size: 80px;
+      font-weight: 700;
+      padding-bottom: min(20%, 40px);
+      color: rgb(70, 100, 180);
+    }
+
+    .card-content {
+      font-size: 24px;
+      font-weight: 400;
+      color: rgb(94, 123, 255);
+      margin-bottom: 60px;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card-img img {
+      width: 50%;
+      height: 100%;
+      margin: 10px;
+      background-size: cover;
+    }
+
+
+    body .shell-main-footer {
+      width: 100%;
+      position: relative;
+      height: 100px;
+      transform: translateY(100px);
+      display: flex;
+      justify-content: center;
+      letter-spacing: 2px;
+      align-items: center;
+      text-align: center;
+      font: 100 30px 'font';
+      background-color: #a1e6ff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="shell-main">
+    <div class="shell-main-nav">
+      <div class="logo">
+        <img src="./image/logo.jpg" alt="">
+        <span>绿豆猫猫包</span>
+      </div>
+      <ul>
+        <li><a href="./index.html">首页</a></li>
+        <li><a href="./Functions.html">整机功能</a></li>
+        <li><a href="./Workflow.html">流程与机构</a></li>
+        <li><a href="./Achievements.html">项目成果</a></li>
+        <li><a href="./Login.html">登录</a></li>
+        <div class="nav-box"></div>
+      </ul>
+    </div>
+    <div id="main">
+      <div id="click-section">
+        <div id="drawerboxes">
+          <div class="drawerbox active">
+            <button class="drawer-btn active" onclick="slideTo(1)">路径规划<span class="drawer-head">1</span></button>
+          </div>
+          <div class="drawerbox">
+            <button class="drawer-btn" onclick="slideTo(2)">扶缨<span class="drawer-head">2</span></button>
+          </div>
+          <div class="drawerbox">
+            <button class="drawer-btn" onclick="slideTo(3)">夹持运输<span class="drawer-head">3</span></button>
+          </div>
+          <div class="drawerbox">
+            <button class="drawer-btn" onclick="slideTo(4)">皮带压紧装置<span class="drawer-head">4</span></button>
+          </div>
+          <!-- 新增按钮 -->
+          <div class="drawerbox">
+            <button class="drawer-btn" onclick="slideTo(5)">夹持角度调节<span class="drawer-head">5</span></button>
+          </div>
+          <div class="drawerbox">
+            <button class="drawer-btn" onclick="slideTo(6)">旋转切割刀片<span class="drawer-head">6</span></button>
+          </div>
+          <div class="drawerbox">
+            <button class="drawer-btn" onclick="slideTo(7)">自动打包<span class="drawer-head">7</span></button>
+          </div>
+          <div class="drawerbox">
+            <button class="drawer-btn" onclick="slideTo(8)">茎叶收集<span class="drawer-head">8</span></button>
+          </div>
+
+        </div>
+      </div>
+      <div id="slide-section">
+        <div id="slide-bar">
+          <div id="bar"></div>
+        </div>
+        <div id="card-section">
+          <div id="card1" class="card">
+            <div class="card-small-title">GPS与摄像识别装置 </div>
+            <div class="card-title">关键技术: 三次样条插值</div>
+            <div class="card-content">利用计算机智能视觉，智能捕获萝卜茎叶位置，高精度规划设备前进路径
+            </div>
+            <div class="card-img">
+              <img src="./img2/01.png" alt="">
+              <img src="./img2/02.png" alt="">
+            </div>
+          </div>
+          <div id="card2" class="card">
+            <div class="card-small-title">扶缨器 </div>
+            <div class="card-title"> 3D打印技术 </div>
+            <div class="card-content"> 扶缨器旋转，使茎叶从倒伏状态转变为直立状态。步进电机可根据实际精确调整，确保拢缨效果最佳化。
+            </div>
+            <div class="card-img">
+              <img src="./img2/03.png" alt="">
+              <img src="./img2/04.png" alt="">
+            </div>
+          </div>
+          <div id="card3" class="card">
+            <div class="card-small-title">夹持、运输 </div>
+            <div class="card-title">皮带压紧装置 </div>
+            <div class="card-content">为拔取胡萝卜提供充足摩擦力，弹簧链接板两端分别连接动轮与定轮，
+              将弹簧弹力进行转化，定轮为皮带提供支撑力。
+            </div>
+            <div class="card-img" >
+              <img src="./img2/05.png" alt="">
+              <img src="./img2/06.png" alt="">
+            </div>
+          </div>
+          <div id="card4" class="card">
+            <div class="card-small-title">夹持、运输 </div>
+            <div class="card-title">皮带压紧装置示意</div>
+            <div class="card-content">其张紧力度可调,动轮和定轮相互作用,保持皮带的张紧,实现萝卜的夹持与运输。
+
+            </div>
+            <div class="card-img">
+              <img src="./img2/07.png" alt="">
+              <img src="./img2/08.png" alt="">
+            </div>
+          </div>
+          <!-- 新增卡片 -->
+          <div id="card5" class="card">
+            <div class="card-small-title">夹持、运输</div>
+            <div class="card-title">夹持角度调节装置</div>
+            <div class="card-content">夹持角度可调，可适应多种类萝一成果长度，以及种植高度
+            </div>
+            <div class="card-img">
+              <img src="./img2/09.png" alt="">
+              <img src="./img2/010.png" alt="">
+            </div>
+          </div>
+          <div id="card6" class="card">
+            <div class="card-small-title">切割 </div>
+            <div class="card-title">旋转切割刀片 </div>
+            <div class="card-content">待萝卜传送至切割电机处，实现萝卜茎叶分离，萝卜受自身重力掉落至萝卜 收集盒内。
+              <div class="card-img">
+                <img src="./img2/011.png" alt="">
+                <img src="./img2/012.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div id="card7" class="card">
+            <div class="card-small-title">自动打包</div>
+            <div class="card-title">自动化打包一体盒</div>
+            <div class="card-content">盒子侧面附着PI加热膜,步进电机自动前进,将打包袋封口,侧面锯齿步进电机前进,将打包带
+              分开,实现自动化。加热膜外部添加隔热层与704图层,具有防水隔热性能,延长设备使用寿命。
+            </div>
+            <div class="card-img">
+              <img src="./img2/013.png" alt="">
+              <img src="./img2/014.png" alt="">
+            </div>
+          </div>
+          <div id="card8" class="card">
+            <div class="card-small-title">茎叶收集</div>
+            <div class="card-title">茎叶尾端收集
+            </div>
+            <div class="card-content">茎叶将持续上输,于末端落入茎叶收集盒,最终实现萝卜自动化收集。
+            </div>
+            <div class="card-img">
+              <img src="./img2/015.png" alt="">
+              <img src="./img2/016.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="shell-main-footer">
+      <span>版权所有-绿豆猫猫包</span>
+    </div>
+  </div>
+  <script>
+    // 定义变量 
+    let chosenSlideNumber = 1; // 当前选择的幻灯片编号 
+    let offset = 0; // 幻灯片偏移量 
+    let barOffset = 0; // 导航条偏移量 
+    let intervalID; // 定时器 ID 
+    // 启动幻灯片轮播 
+    startSlide();
+    // 获取所有抽屉按钮，并为每个按钮添加点击事件监听器 
+    const drawerBtns = Array.from(document.querySelectorAll(".drawer-btn"));
+    drawerBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        clearInterval(intervalID); // 清除定时器 
+        startSlide(); // 重新启动幻灯片轮播 
+      })
+    })
+    // 获取幻灯片区域 
+    const slideSection = document.querySelector("#slide-section");
+    // 鼠标移入幻灯片区域时清除定时器 
+    slideSection.addEventListener("mouseenter", () => {
+      clearInterval(intervalID);
+    })
+    // 鼠标移出幻灯片区域时重新启动幻灯片轮播 
+    slideSection.addEventListener("mouseleave", () => {
+      startSlide();
+    })
+    // 切换到指定编号的幻灯片 
+    function slideTo(slideNumber) {
+      drawerboxToggle(slideNumber); // 切换抽屉面板状态 
+      drawerbtnToggle(slideNumber); // 切换抽屉按钮状态 
+      // 更新偏移量 
+      let previousSlideNumber = chosenSlideNumber;
+      chosenSlideNumber = slideNumber;
+      offset += (chosenSlideNumber - previousSlideNumber) * (-100); // 计算幻灯片偏移量 
+      barOffset += (chosenSlideNumber - previousSlideNumber) * (100); // 计算导航条偏移量 
+      barSlide(barOffset); // 移动导航条 
+      // 获取所有幻灯片，为每个幻灯片设置偏移量 
+      const slides = document.querySelectorAll(".card");
+      Array.from(slides).forEach(slide => {
+        slide.style.transform = `translateY(${offset}%)`;
+      })
+    }
+    // 切换抽屉面板状态 
+    function drawerboxToggle(drawerboxNumber) {
+      let prevDrawerboxNumber = chosenSlideNumber;
+      const drawerboxes = document.querySelectorAll(".drawerbox");
+      drawerboxes[prevDrawerboxNumber - 1].classList.toggle("active"); // 切换前一个抽屉面板的状态 
+      drawerboxes[drawerboxNumber - 1].classList.toggle("active"); // 切换当前抽屉面板的状态 
+    }
+    // 切换抽屉按钮状态 
+    function drawerbtnToggle(drawerBtnNumber) {
+      let prevDrawerBtnNumber = chosenSlideNumber;
+      const drawerBtns = document.querySelectorAll(".drawer-btn");
+      drawerBtns[prevDrawerBtnNumber - 1].classList.toggle("active"); // 切换前一个抽屉按钮的状态 
+      drawerBtns[drawerBtnNumber - 1].classList.toggle("active"); // 切换当前抽屉按钮的状态 
+    }
+    // 移动导航条 
+    function barSlide(barOffset) {
+      const bar = document.querySelector("#bar");
+      // 直接使用 barOffset，取消不必要的 *100 运算
+      bar.style.transform = `translateY(${barOffset * 0.78}%)`;
+    }
+
+
+
+    // 启动幻灯片轮播 
+    function startSlide() {
+      intervalID = setInterval(() => {
+        slideTo(chosenSlideNumber % 8 + 1); // 每次切换到下一个幻灯片 
+      }, 3000); // 每隔 3 秒自动切换幻灯片 
+    }
+
+    // 获取导航栏元素
+    let navbar = document.querySelector('.shell-main-nav');
+    // 初始滚动位置
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', function () {
+      // 获取当前滚动位置
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // 判断滚动方向
+      if (scrollTop > lastScrollTop) {
+        // 向下滚动时隐藏导航栏
+        navbar.style.top = '-80px'; // 可以根据实际导航栏的高度调整
+      } else {
+        // 向上滚动时显示导航栏
+        navbar.style.top = '0';
+      }
+
+      // 更新最后的滚动位置
+      lastScrollTop = scrollTop;
+    });
+
+  </script>
+</body>
+
+</html>
