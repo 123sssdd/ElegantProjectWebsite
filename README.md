@@ -85,5 +85,3 @@ npm run build-css
 
 MIT License，具体见 `LICENSE` 文件。
 
-英文 README（README-en.md）
-
